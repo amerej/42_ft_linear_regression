@@ -30,15 +30,18 @@ def main():
     mileage = 0
 
     with open(filename, "rb") as csvfile:
-        spamreader = csv.reader(csvfile, delimiter=',')
-        for row in spamreader:
-            teta0.append( row[0] )
-            teta1.append( row[1] )
+        reader = csv.reader(csvfile, delimiter=',')
+        try:
+            for row in reader:
+                teta0.append(row[0])
+                teta1.append(row[1])
+        except csv.Error as e:
+            sys.exit('file %s, line %d: %s' % (filename, reader.line_num, e))
         
     mileage = input_km()
     estimate = float(teta0[0]) + (float(teta1[0]) * mileage / 10000)
 
-    print(estimate)
+    print('Price: {}'.format(int(estimate)))
 
 if __name__ == "__main__":
     main()
