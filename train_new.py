@@ -67,6 +67,7 @@ def main():
             quotechar='|', quoting=csv.QUOTE_MINIMAL)
         filewriter.writerow([finalTheta[0], finalTheta[1]])
     
+    plt.plot(km, price, "ro")
     plt.plot([18000, 248000], [finalTheta[0] + ((finalTheta[1] * 0) / 10000), finalTheta[0] + ((finalTheta[1] * 250000) / 10000)])
     plt.show()
 

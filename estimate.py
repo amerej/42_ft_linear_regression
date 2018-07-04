@@ -3,7 +3,6 @@ import csv
 import sys
 import math
 import matplotlib.pyplot as plt
-import plotly
 
 def input_km():
     mileage = 0
@@ -24,7 +23,7 @@ def input_km():
     return mileage
 
 def main():
-    filename = "result.csv"
+    filename = "results.csv"
     teta0 = []
     teta1 = []
     estimate = 0
@@ -37,7 +36,7 @@ def main():
             teta1.append( row[1] )
         
     mileage = input_km()
-    estimate = float(teta0[0]) + float(teta1[0]) * mileage
+    estimate = float(teta0[0]) + (float(teta1[0]) * mileage / 10000)
 
     print(estimate)
 
