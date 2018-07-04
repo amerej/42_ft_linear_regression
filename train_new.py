@@ -56,19 +56,38 @@ def calcCost (theta0, theta1):
         globalCost += ((theta0 + (theta1 * (float(km[i]) / 10000))) - float(price[i]) * ((theta0 + (theta1 * (float(km[i]) / 10000))) - float(price[i])))
     return (1 / m) * globalCost
 
+def calcCostPlot ():
+    xCost = []
+    yCost = []
+    for i in xrange(0, len(errorsCost)):
+        xCost.append(i)
+        yCost.append(errorsCost[i] / 10000)
+    return [xCost, yCost]
+
 def main():
     finalTheta = gradientDescent()
-    print finalTheta[0], finalTheta[1]
-    print finalTheta[0] + ((finalTheta[1] * 148000) / 10000)
-    print km, price
-     
+    errors = calcCostPlot()
+
     with open('results.csv', 'wb') as csvfile:
         filewriter = csv.writer(csvfile, delimiter=',',
             quotechar='|', quoting=csv.QUOTE_MINIMAL)
         filewriter.writerow([finalTheta[0], finalTheta[1]])
     
-    plt.plot(km, price, "ro")
-    plt.plot([18000, 248000], [finalTheta[0] + ((finalTheta[1] * 0) / 10000), finalTheta[0] + ((finalTheta[1] * 250000) / 10000)])
+    fig1, plt1 = plt.subplots()
+    plt1.plot(km, price, "ro")
+    plt1.set_title('Price vs. Mileage')
+    plt1.set_xlabel('Mileage')
+    plt1.set_ylabel('Price')
+    plt1.grid(True)
+    plt1.plot([18000, 248000], [finalTheta[0] + ((finalTheta[1] * 0) / 10000), finalTheta[0] + ((finalTheta[1] * 250000) / 10000)])
+
+    fig2, plt2 = plt.subplots()
+    plt2.set_title('Precision')
+    plt2.set_xlabel('Iterations')
+    plt2.set_ylabel('Global cost')
+    plt2.grid(True)
+    plt2.plot(errors[0], errors[1])
+    
     plt.show()
 
 if __name__ == "__main__":
