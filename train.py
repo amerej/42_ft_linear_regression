@@ -36,7 +36,7 @@ def main():
         
         print(teta0, teta1)
         plt.plot(km, price, "ro")
-        plt.show()
+        #plt.show()
 
 if __name__ == "__main__":
     main()

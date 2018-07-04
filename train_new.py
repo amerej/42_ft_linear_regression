@@ -59,11 +59,15 @@ def calcCost (theta0, theta1):
 def main():
     finalTheta = gradientDescent()
     print finalTheta[0], finalTheta[1]
+    print finalTheta[0] + ((finalTheta[1] * 148000) / 10000)
+    print km, price
+     
     with open('results.csv', 'wb') as csvfile:
         filewriter = csv.writer(csvfile, delimiter=',',
             quotechar='|', quoting=csv.QUOTE_MINIMAL)
         filewriter.writerow([finalTheta[0], finalTheta[1]])
-    plt.plot(km, price, "ro")
+    
+    plt.plot([18000, 248000], [finalTheta[0] + ((finalTheta[1] * 0) / 10000), finalTheta[0] + ((finalTheta[1] * 250000) / 10000)])
     plt.show()
 
 if __name__ == "__main__":
