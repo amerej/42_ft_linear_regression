@@ -3,6 +3,7 @@ import csv
 import sys
 import math
 import matplotlib.pyplot as plt
+import os.path
 
 def input_km():
     mileage = 0
@@ -24,20 +25,21 @@ def input_km():
 
 def main():
     filename = "results.csv"
-    teta0 = []
-    teta1 = []
+    teta0 = [0.0]
+    teta1 = [0.0]
     estimate = 0
     mileage = 0
 
-    with open(filename, "rb") as csvfile:
-        reader = csv.reader(csvfile, delimiter=',')
-        try:
-            for row in reader:
-                teta0.append(row[0])
-                teta1.append(row[1])
-        except csv.Error as e:
-            sys.exit('file %s, line %d: %s' % (filename, reader.line_num, e))
-        
+    if (os.path.isfile(filename)):
+        with open(filename, "rb") as csvfile:
+            reader = csv.reader(csvfile, delimiter=',')
+            try:
+                for row in reader:
+                    teta0[0] = row[0]
+                    teta1[0] = row[1]
+            except csv.Error as e:
+                sys.exit('file %s, line %d: %s' % (filename, reader.line_num, e))
+
     mileage = input_km()
     estimate = float(teta0[0]) + (float(teta1[0]) * mileage / 10000)
 
